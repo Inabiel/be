@@ -1,17 +1,23 @@
 import ResponseUtil from "../../util/response.js";
-import AuthService from "../service/auth.js";
+import RegisterService from "../service/auth/RegisterService.js";
+import SignInService from '../service/auth/SignInService.js'
 
 class AuthController{
     register = async(request, reply) =>{
         try {
-            const user = await AuthService.register(request);
-            if (user) {
-                ResponseUtil.success(reply, 200, user, "successfully adding user");
-            } else {
-                ResponseUtil.error(reply, 404, 'User not found', null);
-            }
+            const user = await (new RegisterService(request)).call();
+            ResponseUtil.success(reply, 200, null, "successfully adding user");
         } catch (error) {
-            ResponseUtil.error(reply, 500, error.message, null);
+            ResponseUtil.error(reply, error.code, error.message, null);
+        }
+    }
+
+    signIn = async(request, reply) => {
+        try {
+            const user = await (new SignInService(request)).call();
+            ResponseUtil.success(reply, 200, user, "succesfully signed in.");
+        } catch (error) {
+            ResponseUtil.error(reply, error.code, error.message, null);
         }
     }
 }
