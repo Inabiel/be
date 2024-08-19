@@ -1,6 +1,5 @@
-// Require the framework and instantiate it
-import UserController from './src/controller/auth.js'
 import UserRoutes from './src/routes/auth.js'
+import PaymentAccountRoutes from './src/routes/paymentAccount.js'
 import Fastify from 'fastify'
 const fastify = Fastify({
   logger: true
@@ -8,6 +7,8 @@ const fastify = Fastify({
  
 
 fastify.register(await (new UserRoutes(fastify)).routes)
+fastify.register(await (new PaymentAccountRoutes(fastify)).routes)
+
 
 // Run the server!
 fastify.listen({ port: 3000 }, (err) => {

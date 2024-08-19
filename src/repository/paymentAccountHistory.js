@@ -6,8 +6,8 @@ class PaymentAccountHistoryRepository{
         this.prisma = prisma
     }
 
-    findByUserId = async(id) => {
-        return this.prisma.paymentAccountHistory.findFirst(id)
+    findByUserId = async(condition) => {
+        return this.prisma.paymentAccountHistory.findFirst({where:condition})
     }
 
 }
