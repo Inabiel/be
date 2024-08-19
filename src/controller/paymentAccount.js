@@ -5,9 +5,8 @@ class PaymentAccountController{
     createPaymentAccount = async(request, reply) =>{
         try {
             const createPayment = await (new CreatePaymentAccountService(request)).call()
-            console.log(createPayment)
+            ResponseUtil.success(reply, 200, createPayment, 'succeeded creating payment account');
         } catch (error) {
-            console.log('err ->', error)
             ResponseUtil.error(reply, error.code, error.message, null);
         }
     }
