@@ -1,13 +1,13 @@
 import 'dotenv/config'
-import prisma from '../../util/prisma'
+import prisma from '../../util/prisma.js'
 
 class PaymentAccountHistoryRepository{
     constructor(){
         this.prisma = prisma
     }
 
-    findByUserId = async(condition) => {
-        return this.prisma.paymentAccountHistory.findFirst({where:condition})
+    findByCondition = async(condition) => {
+        return this.prisma.paymentAccountHistory.findMany({where:condition})
     }
 
 }

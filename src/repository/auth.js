@@ -9,7 +9,6 @@ class AuthRepository{
     }
 
     register = async (username, email, password) => {
-        console.log('data ->', username, email, password)
         return await this.supabase.auth.signUp({username, email, password})
     }
 
