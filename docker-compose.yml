@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: be-test
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"
+
+  app:
+    build: .
+    restart: always
+    environment:
+      DATABASE_URL: "postgresql://postgres:password@db:5432/be-test?schema=public"
+      SUPABASE_AUTH_URL: ""
+      SUPABASE_AUTH_KEY: ""
+
+    ports:
+      - 3000:3000
+    depends_on:
+      - db
+    command:
+      sh -c "npx prisma db push && node server.js"
+    volumes:
+      - .:/app
+
+volumes:
+  db_data:
+
+networks:
+  shared_network:
+    external: true

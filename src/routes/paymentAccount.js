@@ -15,7 +15,11 @@ class PaymentAccountRoutes{
             instance.post('/create', (req, res) => { 
               return PaymentAccountController.createPaymentAccount(req, res)
              })
-          
+
+             instance.post('/list', (req, res) => { 
+                return PaymentAccountController.getPaymentAccount(req, res)
+            })
+
             next()
           }, { prefix: 'payment-account' })
     }

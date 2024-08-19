@@ -10,12 +10,12 @@ class PaymentAccountRepository{
         return this.prisma.paymentAccount.create({data:data})
     }
 
-    getPaymentAccount = async(id) => {
-        return this.prisma.paymentAccount.findFirst(id)
-    }
-
     findByCondition = async(condition) => {
         return this.prisma.paymentAccount.findFirst({where:condition})
+    }
+
+    findManyByCondition = async(condition) => {
+        return this.prisma.paymentAccount.findMany({where:condition})
     }
 
 }
